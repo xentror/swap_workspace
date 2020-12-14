@@ -7,7 +7,3 @@ This bash script has for purpose to swap all yours workspaces in i3 between your
 running the script.
 
 `./swap_workspace`
-
-## KNOWN BUGS
-
-i3-msg display the success or the errors msg in stdout and I did not find a way to avoid it.

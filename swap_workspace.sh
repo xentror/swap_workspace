@@ -3,7 +3,7 @@
 # get basedir of the shell script because for unknown reason 
 # it only work inside his directory
 BASEDIR=`dirname "$0"`
-echo $BASEDIR
+# echo $BASEDIR
 save_pwd=$PWD
 
 # change to the base directory if not already in it
@@ -28,8 +28,8 @@ numbers2=`echo $active_workspace | jq -c 'map(select(.output != "'$output'"))[].
 # got the each worspace and swap it into the other screen
 for number in $numbers1, $numbers2
 do
-    i3-msg workspace $number
-    i3-msg move workspace to output left > /dev/null 1>&2
+    i3-msg workspace $number 1>&2 > /dev/null
+    i3-msg move workspace to output left 1>&2 > /dev/null
 done
 
 if [ $BASEDIR != "." ]; then
@@ -37,6 +37,5 @@ if [ $BASEDIR != "." ]; then
     cd $save_pwd
 fi
 
-
-i3-msg workspace $current
+i3-msg workspace $current 1>&2 >/dev/null
 
