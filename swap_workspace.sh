@@ -25,6 +25,12 @@ output=`echo $active_workspace | jq -r 'map(select(.focused))[0].output'`
 numbers1=`echo $active_workspace | jq -c 'map(select(.output == "'$output'"))[].name'`
 numbers2=`echo $active_workspace | jq -c 'map(select(.output != "'$output'"))[].name'`
 
+activeMonitors=`xrandr | grep "connected" | cut -d' ' -f1 | head -n 2`
+monitor1=`echo $activeMonitors | cut -d' ' -f 1`
+monitor2=`echo $activeMonitors | cut -d' ' -f 2`
+
+xrandr --output $monitor1 --brightness 0 && xrandr --output $monitor2 --brightness 0
+
 # got the each worspace and swap it into the other screen
 for number in $numbers1, $numbers2
 do
@@ -38,4 +44,9 @@ if [ $BASEDIR != "." ]; then
 fi
 
 i3-msg workspace $current 1>&2 >/dev/null
+
+sleep 0.3
+
+xrandr --output $monitor1 --brightness 1
+xrandr --output $monitor2 --brightness 1
 
