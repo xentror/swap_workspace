@@ -36,7 +36,7 @@ xrandr --output $monitor2 --brightness 0
 for number in $numbers1, $numbers2
 do
     i3-msg workspace $number 1>&2 > /dev/null
-    # change to left if your layout is up and down
+    # change to left if your layout is left and right instead of up and down
     i3-msg move workspace to output up 1>&2 > /dev/null
 done
 
