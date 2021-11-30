@@ -29,13 +29,15 @@ activeMonitors=`xrandr | grep "connected" | cut -d' ' -f1 | head -n 2`
 monitor1=`echo $activeMonitors | cut -d' ' -f 1`
 monitor2=`echo $activeMonitors | cut -d' ' -f 2`
 
-xrandr --output $monitor1 --brightness 0 && xrandr --output $monitor2 --brightness 0
+xrandr --output $monitor1 --brightness 0
+xrandr --output $monitor2 --brightness 0
 
 # got the each worspace and swap it into the other screen
 for number in $numbers1, $numbers2
 do
     i3-msg workspace $number 1>&2 > /dev/null
-    i3-msg move workspace to output left 1>&2 > /dev/null
+    # change to left if your layout is up and down
+    i3-msg move workspace to output up 1>&2 > /dev/null
 done
 
 if [ $BASEDIR != "." ]; then
@@ -43,9 +45,9 @@ if [ $BASEDIR != "." ]; then
     cd $save_pwd
 fi
 
-i3-msg workspace $current 1>&2 >/dev/null
+sleep 0.2
 
-sleep 0.3
+i3-msg workspace $current 1>&2 >/dev/null
 
 xrandr --output $monitor1 --brightness 1
 xrandr --output $monitor2 --brightness 1
