@@ -45,6 +45,9 @@ if [ $BASEDIR != "." ]; then
     cd $save_pwd
 fi
 
+# wait 0.2 sec before setting the brightness of the screen to 1
+# increase the time if any visual glitches appears
+# decrease the time if you want to make the swap faster
 sleep 0.2
 
 i3-msg workspace $current 1>&2 >/dev/null
