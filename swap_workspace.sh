@@ -29,8 +29,9 @@ activeMonitors=`xrandr | grep "connected" | cut -d' ' -f1 | head -n 2`
 monitor1=`echo $activeMonitors | cut -d' ' -f 1`
 monitor2=`echo $activeMonitors | cut -d' ' -f 2`
 
-xrandr --output $monitor1 --brightness 0
-xrandr --output $monitor2 --brightness 0
+xrandr --output $monitor1 --brightness 0 2>/dev/null
+xrandr --output $monitor2 --brightness 0 2>/dev/null
+
 
 # got the each worspace and swap it into the other screen
 for number in $numbers1, $numbers2
@@ -45,13 +46,14 @@ if [ $BASEDIR != "." ]; then
     cd $save_pwd
 fi
 
+i3-msg workspace $current 1>&2 >/dev/null
+
 # wait 0.2 sec before setting the brightness of the screen to 1
 # increase the time if any visual glitches appears
 # decrease the time if you want to make the swap faster
 sleep 0.2
 
-i3-msg workspace $current 1>&2 >/dev/null
+xrandr --output $monitor1 --brightness 1 2>/dev/null
+xrandr --output $monitor2 --brightness 1 2>/dev/null
 
-xrandr --output $monitor1 --brightness 1
-xrandr --output $monitor2 --brightness 1
 
